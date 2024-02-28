@@ -134,3 +134,12 @@ li {
 .correct .cols {
   background-color: greenyellow;
 }
+.correct-pos {
+  background-color: rgb(89, 255, 191);
+}
+.heading {
+  font-size: 2rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-style: italic;
+  letter-spacing: 2px;
+}

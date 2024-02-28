@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useMemo } from "react";
 
 const colsArr = [0, 0, 0, 0, 0];
-const answer = "SAMEE";
-let currIndex = -1;
-let curr = answer.split(""); // [s,a,m,e,e]
+const answer = "FOUND";
 
-const Guess = ({ value, setGameOver }) => {
+const Guess = ({ value, setGameOver, setHasWon }) => {
+  let curr = answer.split(""); // [s,a,m,e,e]
   const [correct, setCorrect] = useState(false);
 
   useEffect(() => {
     if (value === answer && !correct) {
       setCorrect(true);
       setGameOver(true);
+      setHasWon(true);
     }
 
     return () => {};
@@ -21,34 +21,31 @@ const Guess = ({ value, setGameOver }) => {
     let arr = String(value)
       .split("")
       .map((v, i) => {
-        // curr.indexOf(item) != -1 ? curr.splice(curr.indexOf(item), 1) : "";
-        let totalCharacter = curr.filter((c) => c === v).length;
+        // console.log("v", v, i);
 
-        console.log("totalCharacter", totalCharacter, v);
-        let temp = null;
-        console.log("Index:", i);
+        let index = curr.indexOf(v);
+        let correctPos = value.indexOf(v) === index;
 
-        curr.forEach((c, j) => {
-          console.log(j);
-          if (c === v && totalCharacter !== 0) {
-            temp = { v, isFound: true };
-            totalCharacter -= 1;
-          } else {
-            temp = { v, isFound: false };
-          }
-        });
+        if (index != -1) {
+          curr[index] = "#";
+          return { v, isFound: true, isCorrectlyPos: correctPos };
+        }
 
-        return temp;
+        return { v, isFound: false, isCorrectlyPos: correctPos };
       });
 
     return arr;
   }, [value]);
 
-  console.log(value);
   function render(v, index) {
     if (v) {
       return (
-        <span className={v.isFound ? "cols present" : "cols"} key={index}>
+        <span
+          className={`${v.isFound ? "cols present" : "cols"} ${
+            v.isCorrectlyPos && "correct-pos"
+          }`}
+          key={index}
+        >
           {v.v}
         </span>
       );

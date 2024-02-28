@@ -3,17 +3,15 @@ import Guess from "./Guess";
 
 const rowsArr = [0, 0, 0, 0, 0, 0];
 
-const Guesses = ({ guesses, setGameOver }) => {
-  console.log(guesses);
+const Guesses = ({ guesses, setGameOver, setHasWon }) => {
   return (
-    // <li key={id}>{label}</li>
-    // RowComponent
     <ul>
       {rowsArr.map((item, index) => (
         <Guess
-          key={index}
+          key={guesses[index]?.id || index}
           value={guesses[index]?.label || ""}
           setGameOver={setGameOver}
+          setHasWon={setHasWon}
         />
       ))}
     </ul>

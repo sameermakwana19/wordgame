@@ -46,7 +46,6 @@ const InputElement = ({ addToGuesses }) => {
           }}
         />
       </form>
-      {inputValue}
       <h2>{!allow && "Minimum Five characters are required"}</h2>
     </>
   );
